@@ -9,6 +9,20 @@ from bson.objectid import ObjectId
 
 from flask.ext.restful import reqparse
 
+## Patch for Flask-Restful
+## http://blog.alienretro.com/using-mongodb-with-flask-restful/
+## http://flask-restful.readthedocs.org/en/latest/extending.html
+def output_json(obj, code, headers=None):
+  """Output a JSON response from a MONGO BSON.
+
+  This is needed because we need to use a custom JSON converter
+  that knows how to translate MongoDB types to JSON.
+  """
+  resp = make_response(dumps(obj), code)
+  resp.headers.extend(headers or {})
+
+  return resp
+
 DEFAULT_REPRESENTATIONS = {'application/json': output_json}
 
 app = Flask(__name__)
