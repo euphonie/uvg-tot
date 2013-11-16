@@ -34,12 +34,15 @@ api = restful.Api(app)
 api.representations = DEFAULT_REPRESENTATIONS
 
 
+class ArticleAPIList(restful.Resource):
+  '''Handle Individual article Resources'''
 
-@app.route('/')
-def hello():
-	return 'Hello World!'
+  def get(self):
+    return mongo.db.articles.find()
 
 
-@app.route('/')
-def hello():
-	return 'Hello World!'
+  def put(self):
+    return {},404
+
+
+api.add_resource(ArticleAPIList, '/articles')
