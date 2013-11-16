@@ -4,6 +4,7 @@ from flask import request, render_template, make_response, jsonify
 
 from flask.ext import restful
 from flask.ext.pymongo import PyMongo
+from flask.ext.pymongo import MongoClient
 from bson.json_util import dumps
 from bson.objectid import ObjectId
 
@@ -27,8 +28,11 @@ DEFAULT_REPRESENTATIONS = {'application/json': output_json}
 
 app = Flask(__name__)
 
-mongo = PyMongo(app, config_prefix="MONGOHQ_URL")
-
+MONGO_URL = os.environ.get('MONGOHQ_URL')
+#connection = Connection(MONGO_URL)
+client = MongoClient(MONGO_URL)
+ 
+db = client.articles
 
 @app.route('/robots.txt')
 def robots():
@@ -52,7 +56,7 @@ class ArticleAPIList(restful.Resource):
   '''Handle Individual article Resources'''
 
   def get(self):
-    return mongo.db.articles.find()
+    return db.articles.find()
 
 
   def put(self):
