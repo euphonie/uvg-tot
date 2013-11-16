@@ -14,15 +14,15 @@ from flask.ext.restful import reqparse
 ## http://blog.alienretro.com/using-mongodb-with-flask-restful/
 ## http://flask-restful.readthedocs.org/en/latest/extending.html
 def output_json(obj, code, headers=None):
-  """Output a JSON response from a MONGO BSON.
+	"""Output a JSON response from a MONGO BSON.
 
-  This is needed because we need to use a custom JSON converter
-  that knows how to translate MongoDB types to JSON.
-  """
-  resp = make_response(dumps(obj), code)
-  resp.headers.extend(headers or {})
+	This is needed because we need to use a custom JSON converter
+	that knows how to translate MongoDB types to JSON.
+	"""
+	resp = make_response(dumps(obj), code)
+	resp.headers.extend(headers or {})
 
-  return resp
+	return resp
 
 DEFAULT_REPRESENTATIONS = {'application/json': output_json}
 DEBUG = False
@@ -34,13 +34,13 @@ if not DEBUG:
 	client = MongoClient(MONGO_URL)
 else :
 	client = MongoClient()
-db = client.articles
+db = client['app19537990']
 
 @app.route('/robots.txt')
 def robots():
-  res = app.make_response('User-agent: *\nAllow: /')
-  res.mimetype = 'text/plain'
-  return res
+	res = app.make_response('User-agent: *\nAllow: /')
+	res.mimetype = 'text/plain'
+	return res
 
 
 @app.route('/')
@@ -55,14 +55,14 @@ api.representations = DEFAULT_REPRESENTATIONS
 
 
 class ArticleAPIList(restful.Resource):
-  '''Handle Individual article Resources'''
+	'''Handle Individual article Resources'''
 
-  def get(self):
-    return client['articles'].find()
+	def get(self):
+		return db.articles.find()
 
 
-  def put(self):
-    return {},405
+	def put(self):
+		return {},405
 
 
 api.add_resource(ArticleAPIList, '/articles')
