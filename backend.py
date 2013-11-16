@@ -25,13 +25,15 @@ def output_json(obj, code, headers=None):
   return resp
 
 DEFAULT_REPRESENTATIONS = {'application/json': output_json}
+DEBUG = False
+
 
 app = Flask(__name__)
-
-MONGO_URL = os.environ.get('MONGOHQ_URL')
-#connection = Connection(MONGO_URL)
-client = MongoClient(MONGO_URL)
- 
+if not DEBUG:
+	MONGO_URL = os.environ.get('MONGOHQ_URL')
+	client = MongoClient(MONGO_URL)
+else :
+	client = MongoClient()
 db = client.articles
 
 @app.route('/robots.txt')
@@ -56,11 +58,11 @@ class ArticleAPIList(restful.Resource):
   '''Handle Individual article Resources'''
 
   def get(self):
-    return db.articles.find()
+    return client['articles'].find()
 
 
   def put(self):
-    return {},404
+    return {},405
 
 
 api.add_resource(ArticleAPIList, '/articles')
