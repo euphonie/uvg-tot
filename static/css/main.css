@@ -1,7 +1,11 @@
 body{
+    font-weight:lighter;
     background-color:rgb(38,140,191);
     color:#fff;
     font-size:18px;
+}
+h1,h2,h3{
+    font-weight:lighter;
 }
 .container.block-content{
     margin:0;
@@ -22,6 +26,7 @@ img.logo{
     padding:20px;
 }
 .footer{
+    letter-spacing:3px;
     font-size:0.6em;
 }
 .footer p{
