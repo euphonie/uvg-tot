@@ -35,7 +35,7 @@ def valid_tag_list(value,name):
 	return ast.literal_eval(value)
 
 DEFAULT_REPRESENTATIONS = {'application/json': output_json}
-DEBUG = True
+DEBUG = False
 
 
 app = Flask(__name__)
