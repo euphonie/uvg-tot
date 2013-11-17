@@ -1,4 +1,5 @@
 import os
+import ast
 from flask import Flask
 from flask import request, render_template, make_response, jsonify
 
@@ -24,8 +25,17 @@ def output_json(obj, code, headers=None):
 
 	return resp
 
+def valid_regex(value, name):
+	'''Converts address to mongodb value regex text query'''
+	v = unicode(value)
+	if v:
+		return {'$regex': v}
+
+def valid_tag_list(value,name):
+	return ast.literal_eval(value)
+
 DEFAULT_REPRESENTATIONS = {'application/json': output_json}
-DEBUG = False
+DEBUG = True
 
 
 app = Flask(__name__)
@@ -53,16 +63,42 @@ def hello():
 api = restful.Api(app)
 api.representations = DEFAULT_REPRESENTATIONS
 
+search_parser = reqparse.RequestParser()
+search_parser.add_argument('title', type=valid_regex)
+search_parser.add_argument('content',type=valid_regex)
+
+insertion_parser = reqparse.RequestParser()
+insertion_parser.add_argument('title', type=valid_regex)
+insertion_parser.add_argument('content',type=valid_regex)
+insertion_parser.add_argument('tag_list',type=valid_tag_list)
+insertion_parser.add_argument('contact_name',type=str)
+insertion_parser.add_argument('contact_phone',type=str)
+insertion_parser.add_argument('contact_mail',type=str)
+
+class ArticleAPI(restful.Resource):
+	''' Handle Individual article resource'''
+	def get(self, article_id=-1):
+		return db.articles.find_or_404({'_id':article_id})
+
+	def post(self):
+		article = insert_parser.parse_args()
+		article["creation_date"] = datetime.datetime.utcnow()
+		response = db.articles.insert(article)
+		return response
 
 class ArticleAPIList(restful.Resource):
-	'''Handle Individual article Resources'''
+	'''Handle List of article Resources'''
 
 	def get(self):
-		return db.articles.find()
+		input_dict = search_parser.parse_args()
 
+		clean_dict = dict((k, v) for k, v in input_dict.iteritems() if v)
+		if clean_dict == {}:
+			return db.articles.find()
+		else:
+			return db.articles.find(clean_dict)
 
-	def put(self):
-		return {},405
 
 
 api.add_resource(ArticleAPIList, '/articles')
+api.add_resource(ArticleAPI,'/article','/article/<ObjectId:article_id>')
