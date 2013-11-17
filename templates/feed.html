@@ -1,9 +1,26 @@
 {% extends "layout.html" %}
 {% set active_page = 'feed' -%}
 {% block content %}
-  <div class="jumbo">
-    <img class="logo img-circle" alt="logo" src="{{ url_for('static',filename='img/logo.png') }}">
-    <h2>Bienvenido a UVG TOT</h2>
-    <small>¿Quieres ofrecer algún producto o servicio? Esta es tu plataforma!</small>
+  <div class="article-list">
+    {% for article in articles %}
+        {% set color = ['orange','red','yellow','blue','green'] | random %}
+        <div class="article stripe stripe-{{color}}">
+            <div class="row">
+                <div class="col-md-10">
+                    <h2 class="article-title">{{article.title}}</h2>
+                    <p class="article-content">{{ article.content|safe }}</p>
+                </div>
+                <div class="col-md-2">
+                    <div class="article-more">
+                        <a href="/article/{{article._id}}" type="submit" class="btn btn-default">Más <i class="fa-angle-double-right fa"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="bs-callout bs-callout-info">
+          <h2>No hay anuncios en este momento</h2>
+        </div>
+    {% endfor %}
   </div>
 {% endblock %}

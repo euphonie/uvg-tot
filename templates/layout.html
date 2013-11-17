@@ -6,6 +6,7 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/docs.css') }}">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -38,14 +39,34 @@
                 <li{% if id == active_page %} class="active"{% endif%}><a href="{{ href|e }}">{{ caption|e }}</a></li>
             {% endfor %}
           </ul>
+          <form action="/articles" class="navbar-form navbar-left hidden-sm hidden-md hidden-xs
+          " role="search">
+            <div class="form-group">
+              <input id="q" type="text" class="form-control" placeholder="Search">
+            </div>
+            <button id="submitQuery" type="submit" class="btn btn-default">Submit</button>
+          </form>
+          <form class="navbar-form navbar-left hidden-sm hidden-md hidden-xs" role="add">
+            <button id="addArticle" type="submit" class="btn btn-default"><i class="fa-plus fa"></i></button>
+          </form>
         </div><!--/.nav-collapse -->
       </div>
     </div>
     <div class="container block-content">
+        {% for category,message in get_flashed_messages(with_categories=true) %}
+            <div class="bs-callout bs-callout-{{category}} site-flash">
+              <h2>{{ message }}</h2>
+            </div>
+        {% endfor %}
+      <div class="jumbo">
+        <img class="logo img-circle" alt="logo" src="{{ url_for('static',filename='img/logo.png') }}">
+        <h2>Bienvenido a UVG TOT</h2>
+        <small>¿Quieres ofrecer algún producto o servicio? Esta es tu plataforma!</small>
+      </div>
+      <hr/>
       {% block content %}
       {% endblock %}
     </div>
-    <hr/>
     <div class="footer">
         <p>&copy Estudiantes de Arq. Empresarial 2013, UVG</p>
         <p>Este es un proyecto de una asignatura. No está afiliado de alguna manera a la universidad del valle de Guatemala</p>
@@ -53,5 +74,6 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>  
+    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
   </body>
 </html>

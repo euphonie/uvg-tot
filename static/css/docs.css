@@ -575,21 +575,21 @@ h1[id] {
 
 /* Variations */
 .bs-callout-danger {
-  background-color: #fdf7f7;
+  background-color: #FD4B4B;
   border-color: #eed3d7;
 }
 .bs-callout-danger h4 {
   color: #b94a48;
 }
 .bs-callout-warning {
-  background-color: #faf8f0;
+  background-color: #FAD84F;
   border-color: #faebcc;
 }
 .bs-callout-warning h4 {
   color: #c09853;
 }
 .bs-callout-info {
-  background-color: #f4f8fa;
+  background-color: #4FB2E4;
   border-color: #bce8f1;
 }
 .bs-callout-info h4 {

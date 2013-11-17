@@ -2,7 +2,7 @@ import os
 import ast
 import datetime
 from flask import Flask
-from flask import request, render_template, make_response, jsonify
+from flask import request,flash, render_template, make_response, jsonify
 
 import logging
 from logging.handlers import RotatingFileHandler
@@ -44,6 +44,7 @@ def valid_tag_list(value,name):
 DEFAULT_REPRESENTATIONS = {'application/json': output_json}
 
 app = Flask(__name__)
+app.secret_key = 'Ya1jNH2RvZg3kf9G7u4i6T2U82lD4Nz1'
 
 if not app.debug:
 	MONGO_URL = os.environ.get('MONGOHQ_URL')
@@ -65,8 +66,8 @@ def robots():
 
 @app.route('/')
 def feed():
-	return render_template('feed.html')
-
+	return render_template('feed.html',articles=db.articles.find(),random=random)
+	
 @app.route('/about')
 def about():
 	return render_template('about.html')
