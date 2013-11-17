@@ -7,7 +7,7 @@ MarkupSafe==0.18
 PyRSS2Gen==1.0.0
 Twisted==11.0.0
 Werkzeug==0.9.4
-altgraph==0.7.1
+altgraph==0.7.2
 bdist-mpkg==0.4.4
 bonjour-py==0.3
 geopy==0.95.1
