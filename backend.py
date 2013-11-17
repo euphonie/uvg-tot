@@ -63,10 +63,13 @@ def robots():
 	res.mimetype = 'text/plain'
 	return res
 
-
 @app.route('/')
-def hello():
-	return 'Hello World!'
+def feed():
+	return render_template('feed.html')
+
+@app.route('/about')
+def about():
+	return render_template('about.html')
 
 
 ## Start of UVG Tot API
