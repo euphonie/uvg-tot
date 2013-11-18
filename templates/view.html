@@ -1,0 +1,38 @@
+{% extends "simple_layout.html" %}
+{% block content %}
+    <div class="article-detail">
+        <ul class="nav nav-pills">
+            <li class="active">
+                <a href="{{ url_for('feed') }}"><i class="fa-angle-double-left fa"></i> Ver todos </a>
+            </li>
+        </ul>
+        <h2 class="article-detail-title well">
+            {{article[0].title}}
+        </h2>
+        <div class="article-detail-content">
+            <label>Descripción</label>
+            {{article[0].content}}
+        </div>
+        {% if article[0].tag_list %}
+        <ul class="article-detail-tag-list">
+            {% for one_tag in article[0].tag_list %}
+                <li><a class="tag">{{one_tag.tag}}</a></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <hr/>
+        <h3>Contacto</h3>
+        <div class="article-detail-contact-name">
+            <small>(Nombre): </small>{{article[0].contact_name}}
+        </div>
+        <div class="article-detail-contact-phone">
+            <small>(Telefono): </small>{{article[0].contact_phone}}
+        </div>
+        {% if article[0].contact_email %}
+        <div class="article-detail-contact-email">
+            {{article[0].contact_email}}
+        </div>
+        {% endif %}
+        
+    </div>
+{% endblock %}

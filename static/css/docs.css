@@ -581,6 +581,14 @@ h1[id] {
 .bs-callout-danger h4 {
   color: #b94a48;
 }
+.bs-callout-success h4{
+  color:#8FBD56;
+}
+.bs-callout-success {
+  background-color: #A1C277;
+  border-color:#89AA60;
+}
+
 .bs-callout-warning {
   background-color: #FAD84F;
   border-color: #faebcc;

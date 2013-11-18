@@ -2,6 +2,9 @@
 {% set active_page = 'feed' -%}
 {% block content %}
   <div class="article-list">
+    {% if results %}
+        <h3 class="results-title">Estos son los resultados de la búsqueda:</h3>
+    {% endif %}
     {% for article in articles %}
         {% set color = ['orange','red','yellow','blue','green'] | random %}
         <div class="article stripe stripe-{{color}}">
@@ -12,14 +15,18 @@
                 </div>
                 <div class="col-md-2">
                     <div class="article-more">
-                        <a href="/article/{{article._id}}" type="submit" class="btn btn-default">Más <i class="fa-angle-double-right fa"></i></a>
+                        <a href="/view/{{article._id}}" type="submit" class="btn btn-default">Más <i class="fa-angle-double-right fa"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     {% else %}
         <div class="bs-callout bs-callout-info">
-          <h2>No hay anuncios en este momento</h2>
+            {% if results %}
+                <h2>No hay anuncios para esta búsqueda. Regresa a ver todos los anuncios <a href="{{ url_for('feed') }}">Inicio</a></h2>
+            {% else %}
+                <h2>No hay anuncios en este momento</h2>
+            {% endif %}
         </div>
     {% endfor %}
   </div>

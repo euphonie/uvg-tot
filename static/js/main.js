@@ -1,9 +1,7 @@
 $(document).ready(function(){
+    $('#submitQuery').removeClass('disabled');
     $('#submitQuery').on('click',function(){
         query = $('#q').val();
-        $.get( "/articles?q="+query, function( data ) {
-            console.log('done');
-        });
-        return false;
+        $('#search').attr('action',$('#search').attr('action')+"/"+query);
     });
 });

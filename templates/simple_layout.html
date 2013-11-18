@@ -39,7 +39,7 @@
                 <li{% if id == active_page %} class="active"{% endif%}><a href="{{ href|e }}">{{ caption|e }}</a></li>
             {% endfor %}
           </ul>
-          <form id="search" action="/q" class="navbar-form navbar-left hidden-sm hidden-md hidden-xs
+          <form action="/articles" class="navbar-form navbar-left hidden-sm hidden-md hidden-xs
           " role="search">
             <div class="form-group">
               <input id="q" type="text" class="form-control" placeholder="En titulos o contenido">
@@ -57,15 +57,9 @@
             <div class="bs-callout bs-callout-{{category}} site-flash">
               <h2>{{ message }}</h2>
             </div>
-        {% endfor %}
-      <div class="jumbo">
-        <img class="logo img-circle" alt="logo" src="{{ url_for('static',filename='img/logo.png') }}">
-        <h2>Bienvenido a UVG TOT</h2>
-        <small>¿Quieres ofrecer algún producto o servicio? Esta es tu plataforma!</small>
-      </div>
-      <hr/>
-      {% block content %}
-      {% endblock %}
+        {% endfor %} 
+        {% block content %}
+        {% endblock %}
     </div>
     <div class="footer">
         <p>&copy Estudiantes de Arq. Empresarial 2013, UVG</p>

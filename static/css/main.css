@@ -41,15 +41,77 @@ img.logo{
     color:#fff;
     font-size:3em;
 }
-.article-content{
-    
-}
 .article-more a{
     height: 120px;
     width: 200px;
     display: table-cell;
     text-align: center;
     vertical-align: middle;
+}
+.article-detail{
+    margin:10px;
+    padding:20px;
+    color:#000;
+}
+.article-detail-contact-name, .article-detail-contact-phone,.article-detail-contact-email{
+    padding-left:20px;
+}
+/* gotten from : http://cssglobe.com/pure-css3-post-tags/ */
+.article-detail-tag-list{
+    margin:0;
+    padding:0;
+    list-style:none;
+    display:table-cell;
+}
+.article-detail-tag-list li, .article-detail-tag-list a{
+    float:left;
+    height:24px;
+    line-height:24px;
+    position:relative;
+}
+.article-detail-tag-list a{
+    margin-left:20px;
+    padding:0 10px 0 12px;
+    background:#0089e0;
+    color:#fff;
+    text-decoration:none;
+    -moz-border-radius-bottomright:4px;
+    -webkit-border-bottom-right-radius:4px;	
+    border-bottom-right-radius:4px;
+    -moz-border-radius-topright:4px;
+    -webkit-border-top-right-radius:4px;	
+    border-top-right-radius:4px;	
+} 
+.article-detail-tag-list a:before{
+    content:"";
+    float:left;
+    position:absolute;
+    top:0;
+    left:-12px;
+    width:0;
+    height:0;
+    border-color:transparent #0089e0 transparent transparent;
+    border-style:solid;
+    border-width:12px 12px 12px 0;		
+}
+.article-detail-tag-list a:after{
+    content:"";
+    position:absolute;
+    top:10px;
+    left:0;
+    float:left;
+    width:4px;
+    height:4px;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    border-radius:2px;
+    background:#fff;
+    -moz-box-shadow:-1px -1px 2px #004977;
+    -webkit-box-shadow:-1px -1px 2px #004977;
+    box-shadow:-1px -1px 2px #004977;
+}
+.results-title{
+    color:rgb(4,44,160);
 }
 .stripe{
     border-left-width:10px;

@@ -32,11 +32,10 @@ def output_json(obj, code, headers=None):
 
 	return resp
 
-def valid_regex(value, name):
-	'''Converts address to mongodb value regex text query'''
+def valid_unicode(value, name):
+	'''Converts query to unicode '''
 	v = unicode(value)
-	if v:
-		return {'$regex': v}
+	return v
 
 def valid_tag_list(value,name):
 	return ast.literal_eval(value)
@@ -66,21 +65,48 @@ def robots():
 
 @app.route('/')
 def feed():
-	return render_template('feed.html',articles=db.articles.find(),random=random)
+	return render_template('feed.html',articles=db.articles.find())
 	
 @app.route('/about')
 def about():
 	return render_template('about.html')
 
+@app.route('/view/<article_id>')
+def view(article_id=-1):
+	article_view = db.articles.find({'_id':ObjectId(article_id)})
+	return render_template('view.html',article=article_view)
 
+@app.route('/new')
+def new():
+	return render_template('new.html')
+
+@app.route('/publish', methods=['POST'])
+def publish():
+	values = {}
+	values['title'] = request.form['title']
+	values['content'] = request.form['content']
+	values['contact_name'] = request.form['contact_name']
+	values['contact_phone'] = request.form['contact_phone']
+	values['contact_email'] = request.form['contact_email']
+	flash('Publicado exitosamente!','success')
+	db.articles.insert(values)
+	return render_template('feed.html',articles=db.articles.find())
+
+@app.route('/q/<query>')
+def q(query=''):
+	clean_dict = {}
+	clean_dict['title'] = {'$regex':query,'$options':'i'}
+	clean_dict['content'] = {'$regex':query,'$options':'i'}
+	return render_template('feed.html',articles=db.articles.find({'$or':[{'title':clean_dict['title']}, {'content':clean_dict['content']}]}),results=True)	
+	
 ## Start of UVG Tot API
 
 api = restful.Api(app)
 api.representations = DEFAULT_REPRESENTATIONS
 
 search_parser = reqparse.RequestParser()
-search_parser.add_argument('title', type=valid_regex)
-search_parser.add_argument('content',type=valid_regex)
+search_parser.add_argument('q', type=valid_unicode)
+search_parser.add_argument('type',type=str)
 
 insertion_parser = reqparse.RequestParser()
 insertion_parser.add_argument('title', type=str)
@@ -107,13 +133,13 @@ class ArticleAPIList(restful.Resource):
 
 	def get(self):
 		input_dict = search_parser.parse_args()
-
-		clean_dict = dict((k, v) for k, v in input_dict.iteritems() if v)
-		if clean_dict == {}:
+		clean_dict = {}
+		if input_dict == {}:
 			return db.articles.find()
 		else:
-			return db.articles.find(clean_dict)
-
+			clean_dict['title'] = {'$regex':input_dict['q'],'$options':'i'}
+			clean_dict['content'] = {'$regex':input_dict['q'],'$options':'i'}
+			return db.articles.find({'$or':[{'title':clean_dict['title']}, {'content':clean_dict['content']}]})
 
 
 api.add_resource(ArticleAPIList, '/articles')
