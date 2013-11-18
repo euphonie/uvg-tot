@@ -42,6 +42,7 @@ img.logo{
     background-color:rgb(38,140,191);
 }
 .article-title{
+    word-wrap: break-word;
     color:#fff;
     font-size:3em;
 }
