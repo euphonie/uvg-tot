@@ -41,12 +41,12 @@
                 <li{% if id == active_page %} class="active"{% endif%}><a href="{{ href|e }}">{{ caption|e }}</a></li>
             {% endfor %}
           </ul>
-          <form action="/q" class="search navbar-form navbar-left pull-right hidden-sm hidden-md hidden-xs
+          <form action="/" method="GET" class="search navbar-form navbar-left pull-right hidden-sm hidden-md hidden-xs
           " role="search">
             <div class="form-group">
-              <input type="text" class="q form-control" placeholder="En titulos o contenido">
+              <input type="text" name="q" class="form-control" placeholder="En titulos o contenido">
             </div>
-            <button type="submit" class="submitQuery btn btn-default disabled">Buscar</button>
+            <button type="submit" class="btn btn-default">Buscar</button>
           </form>
           <form action="/new" class="navbar-form navbar-left pull-right hidden-sm hidden-md hidden-xs" role="add">
             <button type="submit" class="btn btn-default"><i class="fa-plus fa"></i></button>
@@ -61,11 +61,11 @@
             </div>
         {% endfor %}
         <div class="mobile-forms hidden-lg show-sm show-md show-xs">
-          <form action="/q" class="search navbar-form navbar-left pull-right" role="search">
+          <form action="/" method="GET" class="search navbar-form navbar-left pull-right" role="search">
             <div class="form-group pull-right">
-              <input type="text" class="q form-control" placeholder="En titulos o contenido">
+              <input type="text" name="q" class="form-control" placeholder="En titulos o contenido">
             </div>
-            <button type="submit" class="submitQuery btn btn-default disabled pull-right">Buscar</button>
+            <button type="submit" class="btn btn-default pull-right">Buscar</button>
           </form>
           <form action="/new" class="navbar-form navbar-left" role="add">
             <button type="submit" class="btn btn-default"><i class="fa-plus fa"></i></button>
