@@ -41,14 +41,14 @@
                 <li{% if id == active_page %} class="active"{% endif%}><a href="{{ href|e }}">{{ caption|e }}</a></li>
             {% endfor %}
           </ul>
-          <form id="search" action="/q" class="navbar-form navbar-left hidden-sm hidden-md hidden-xs
+          <form id="search" action="/q" class="navbar-form navbar-left pull-right hidden-sm hidden-md hidden-xs
           " role="search">
             <div class="form-group">
               <input id="q" type="text" class="form-control" placeholder="En titulos o contenido">
             </div>
             <button id="submitQuery" type="submit" class="btn btn-default disabled">Buscar</button>
           </form>
-          <form action="/new" class="navbar-form navbar-left hidden-sm hidden-md hidden-xs" role="add">
+          <form action="/new" class="navbar-form navbar-left pull-right hidden-sm hidden-md hidden-xs" role="add">
             <button type="submit" class="btn btn-default"><i class="fa-plus fa"></i></button>
           </form>
         </div><!--/.nav-collapse -->
@@ -60,6 +60,17 @@
               <h2>{{ message }}</h2>
             </div>
         {% endfor %}
+        <div class="mobile-forms hidden-lg show-sm show-md show-xs">
+          <form id="search" action="/q" class="navbar-form navbar-left pull-right" role="search">
+            <div class="form-group pull-right">
+              <input id="q" type="text" class="form-control" placeholder="En titulos o contenido">
+            </div>
+            <button id="submitQuery" type="submit" class="btn btn-default disabled pull-right">Buscar</button>
+          </form>
+          <form action="/new" class="navbar-form navbar-left" role="add">
+            <button type="submit" class="btn btn-default"><i class="fa-plus fa"></i></button>
+          </form>
+        </div>
       <div class="jumbo">
         <img class="logo img-circle" alt="logo" src="{{ url_for('static',filename='img/logo.png') }}">
         <h2>Bienvenido a UVG TOT</h2>

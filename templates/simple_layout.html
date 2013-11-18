@@ -41,14 +41,14 @@
                 <li{% if id == active_page %} class="active"{% endif%}><a href="{{ href|e }}">{{ caption|e }}</a></li>
             {% endfor %}
           </ul>
-          <form action="/articles" class="navbar-form navbar-left hidden-sm hidden-md hidden-xs
+          <form action="/articles" class="navbar-form navbar-left pull-right hidden-sm hidden-md hidden-xs
           " role="search">
             <div class="form-group">
               <input id="q" type="text" class="form-control" placeholder="En titulos o contenido">
             </div>
             <button id="submitQuery" type="submit" class="btn btn-default disabled">Buscar</button>
           </form>
-          <form action="/new" class="navbar-form navbar-left hidden-sm hidden-md hidden-xs" role="add">
+          <form action="/new" class="navbar-form navbar-left pull-right hidden-sm hidden-md hidden-xs" role="add">
             <button type="submit" class="btn btn-default"><i class="fa-plus fa"></i></button>
           </form>
         </div><!--/.nav-collapse -->
@@ -59,7 +59,18 @@
             <div class="bs-callout bs-callout-{{category}} site-flash">
               <h2>{{ message }}</h2>
             </div>
-        {% endfor %} 
+        {% endfor %}
+        <div class="mobile-forms hidden-lg show-sm show-md show-xs">
+          <form id="search" action="/q" class="navbar-form navbar-left pull-right" role="search">
+            <div class="form-group pull-right">
+              <input id="q" type="text" class="form-control" placeholder="En titulos o contenido">
+            </div>
+            <button id="submitQuery" type="submit" class="btn btn-default disabled pull-right">Buscar</button>
+          </form>
+          <form action="/new" class="navbar-form navbar-left" role="add">
+            <button type="submit" class="btn btn-default"><i class="fa-plus fa"></i></button>
+          </form>
+        </div>
         {% block content %}
         {% endblock %}
     </div>
