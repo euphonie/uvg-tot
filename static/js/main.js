@@ -1,8 +1,8 @@
 $(document).ready(function(){
     $('.submitQuery').removeClass('disabled');
     $('.submitQuery').on('click',function(){
-        query = $('#q').val();
-        $('#search').attr('action',$('#search').attr('action')+"/"+query);
+        query = $(this).prev().find('.q').val();
+        $(this).closest('.search').attr('action',$(this).closest('.search').attr('action')+"/"+query);
     });
     $("#tag-list").select2({tags:[]});
 });

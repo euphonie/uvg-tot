@@ -41,10 +41,10 @@
                 <li{% if id == active_page %} class="active"{% endif%}><a href="{{ href|e }}">{{ caption|e }}</a></li>
             {% endfor %}
           </ul>
-          <form id="search" action="/q" class="navbar-form navbar-left pull-right hidden-sm hidden-md hidden-xs
+          <form action="/q" class="search navbar-form navbar-left pull-right hidden-sm hidden-md hidden-xs
           " role="search">
             <div class="form-group">
-              <input id="q" type="text" class="form-control" placeholder="En titulos o contenido">
+              <input type="text" class="q form-control" placeholder="En titulos o contenido">
             </div>
             <button type="submit" class="submitQuery btn btn-default disabled">Buscar</button>
           </form>
@@ -61,9 +61,9 @@
             </div>
         {% endfor %}
         <div class="mobile-forms hidden-lg show-sm show-md show-xs">
-          <form id="search" action="/q" class="navbar-form navbar-left pull-right" role="search">
+          <form action="/q" class="search navbar-form navbar-left pull-right" role="search">
             <div class="form-group pull-right">
-              <input id="q" type="text" class="form-control" placeholder="En titulos o contenido">
+              <input type="text" class="q form-control" placeholder="En titulos o contenido">
             </div>
             <button type="submit" class="submitQuery btn btn-default disabled pull-right">Buscar</button>
           </form>

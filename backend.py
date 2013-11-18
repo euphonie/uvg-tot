@@ -96,6 +96,10 @@ def publish():
 	db.articles.insert(values)
 	return render_template('feed.html',articles=db.articles.find())
 
+@app.route('/q')
+def empty_q():
+	return {},404
+
 @app.route('/q/<query>')
 def q(query=''):
 	clean_dict = {}
