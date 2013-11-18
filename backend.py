@@ -96,17 +96,16 @@ def publish():
 	db.articles.insert(values)
 	return render_template('feed.html',articles=db.articles.find())
 
-@app.route('/q')
-def empty_q():
-	return {},404
-
 @app.route('/q/<query>')
 def q(query=''):
-	clean_dict = {}
-	clean_dict['title'] = {'$regex':query,'$options':'i'}
-	clean_dict['content'] = {'$regex':query,'$options':'i'}
-	clean_dict['tag_list'] = {'$elemMatch':{'tag':query}}
-	return render_template('feed.html',articles=db.articles.find({'$or':[{'title':clean_dict['title']}, {'content':clean_dict['content']}, {'tag_list':clean_dict['tag_list']}]}),results=True)	
+	if query:
+		clean_dict = {}
+		clean_dict['title'] = {'$regex':query,'$options':'i'}
+		clean_dict['content'] = {'$regex':query,'$options':'i'}
+		clean_dict['tag_list'] = {'$elemMatch':{'tag':query}}
+		return render_template('feed.html',articles=db.articles.find({'$or':[{'title':clean_dict['title']}, {'content':clean_dict['content']}, {'tag_list':clean_dict['tag_list']}]}),results=True)
+	else:
+		return {},404
 	
 ## Start of UVG Tot API
 
