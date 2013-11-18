@@ -4,4 +4,5 @@ $(document).ready(function(){
         query = $('#q').val();
         $('#search').attr('action',$('#search').attr('action')+"/"+query);
     });
+    $("#tag-list").select2({tags:[]});
 });

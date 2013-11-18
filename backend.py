@@ -85,6 +85,10 @@ def publish():
 	values = {}
 	values['title'] = request.form['title']
 	values['content'] = request.form['content']
+	tags = []
+	for tag in (request.form['tag-list'].split(',')):
+		tags.append({'tag':tag})
+	values['tag_list'] = tags
 	values['contact_name'] = request.form['contact_name']
 	values['contact_phone'] = request.form['contact_phone']
 	values['contact_email'] = request.form['contact_email']
@@ -97,7 +101,8 @@ def q(query=''):
 	clean_dict = {}
 	clean_dict['title'] = {'$regex':query,'$options':'i'}
 	clean_dict['content'] = {'$regex':query,'$options':'i'}
-	return render_template('feed.html',articles=db.articles.find({'$or':[{'title':clean_dict['title']}, {'content':clean_dict['content']}]}),results=True)	
+	clean_dict['tag_list'] = {'$elemMatch':{'tag':query}}
+	return render_template('feed.html',articles=db.articles.find({'$or':[{'title':clean_dict['title']}, {'content':clean_dict['content']}, {'tag_list':clean_dict['tag_list']}]}),results=True)	
 	
 ## Start of UVG Tot API
 
@@ -139,7 +144,8 @@ class ArticleAPIList(restful.Resource):
 		else:
 			clean_dict['title'] = {'$regex':input_dict['q'],'$options':'i'}
 			clean_dict['content'] = {'$regex':input_dict['q'],'$options':'i'}
-			return db.articles.find({'$or':[{'title':clean_dict['title']}, {'content':clean_dict['content']}]})
+			clean_dict['tag_list'] = {'$elemMatch':{'tag':query}}
+			return db.articles.find({'$or':[{'title':clean_dict['title']}, {'content':clean_dict['content']},{'tag_list':clean_dict['tag_list']}]})
 
 
 api.add_resource(ArticleAPIList, '/articles')
