@@ -1,7 +1,7 @@
 uvg-tot
 =======
 
-Test application for an asignature
+Simple responsive announcement application built with Flask.
 
 TODO:
 - Fill out about section
