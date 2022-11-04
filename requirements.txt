@@ -5,5 +5,5 @@ Flask-RESTful==0.2.5
 Jinja2==2.7.1
 MarkupSafe==0.18
 PyRSS2Gen==1.0.0
-Twisted==11.0.0
+Twisted==22.10.0
 Werkzeug==0.9.4
