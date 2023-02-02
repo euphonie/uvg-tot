@@ -6,4 +6,4 @@ Jinja2==2.7.1
 MarkupSafe==0.18
 PyRSS2Gen==1.0.0
 Twisted==11.0.0
-Werkzeug==0.9.4
+Werkzeug==0.15.5
